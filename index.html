@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Lovey!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: #fff0f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    .question-box, .letter-envelope {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+      display: none;
+      max-width: 90%;
+    }
+    .question-box.active {
+      display: block;
+    }
+    input {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      width: 80%;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #ff69b4;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+    .envelope {
+      cursor: pointer;
+      font-size: 1.2em;
+      background: #fff0f6;
+      border: 2px dashed #ff69b4;
+      border-radius: 20px;
+      padding: 30px;
+      display: inline-block;
+      transition: 0.3s;
+    }
+    .letter {
+      display: none;
+      text-align: left;
+      padding: 20px;
+      border-radius: 15px;
+      background: #fff8fc;
+      position: relative;
+      max-width: 90%;
+    }
+    .confetti {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: pink;
+      animation: fall 3s linear infinite;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+    .cute-doodles {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="question-box active" id="q0">
+    <p>Where did we first meet?</p>
+    <input id="a0" placeholder="Type your answer...">
+    <div class="error" id="e0"></div>
+    <button onclick="checkAnswer(0, ['rpw'])">Next</button>
+  </div>
+  <div class="question-box" id="q1">
+    <p>When did we first meet?</p>
+    <input id="a1" placeholder="Type your answer...">
+    <div class="error" id="e1"></div>
+    <button onclick="checkAnswer(1, ['april', 'april 26'])">Next</button>
+  </div>
+  <div class="question-box" id="q2">
+    <p>What’s my fave endearment to call you?</p>
+    <input id="a2" placeholder="Type your answer...">
+    <div class="error" id="e2"></div>
+    <button onclick="checkAnswer(2, ['lovey'])">Next</button>
+  </div>
+  <div class="question-box" id="q3">
+    <p>What nickname I often call you when I teased you?</p>
+    <input id="a3" placeholder="Type your answer...">
+    <div class="error" id="e3"></div>
+    <button onclick="checkAnswer(3, ['asim', 'yuyay', 'buhay'])">Next</button>
+  </div>
+  <div class="question-box" id="q4">
+    <p>When’s our monthsarry?</p>
+    <input id="a4" placeholder="Type your answer...">
+    <div class="error" id="e4"></div>
+    <button onclick="checkAnswer(4, ['april 9'])">Submit</button>
+  </div>
+
+  <div class="letter-envelope" id="envelope">
+    <div class="envelope" onclick="openLetter()">
+      💌 Tap to open your birthday letter, Lovey 💌
+    </div>
+  </div>
+
+  <div class="letter" id="letter">
+    <audio autoplay controls loop>
+      <source src="https://www.youtube.com/embed/XPBwXKgDTdE?si=EoNtj8EXe0Bwh2UV" type="audio/mp3">
+      Your browser does not support audio.
+    </audio>
+    <p>Happiest Birthday my love, welcome to the age of legality! Hala matanda kana love kidding aside I hope you enjoy your day; may this day be filled with laughter and happiness. So pano ba, hirap  naman simulan ng letter na tohHAHAH ano wla joke. Thankyouu for everthing my love, thankyou for staying and putting up with my attitude even though alam naman nating dalawa na mahirap talaga i-handle tong attitude ko. Thankyouu for understanding my situation despite na nagiging cold nako sayo. Thankyouu for handling the whole me without complain. Alam kong nahihirapan kana din minsan but you still choose to stay and choose me every single day. I know lot of things change in me but you still choose to accept all of it without a single complain. May we celebrate more birthdays and monthsary/ anniversary to come. My only wish for you is to have prosperous and healthy life, sana matupad mo lahat ng dreams and goals mo with or without me. I want to see you success in life kaya sana po wag mag-give up sa mga bagay bagay kahit minsan nahihirapan kna tlga. As waray people says, “padayon” which means “keep going”. I hope you keep going despite all the challenges and hindrances life throws on you. Again happy birthday my love, padayon future engineer
+    </p>
+    <div class="cute-doodles">❤️👫🎀💖💌</div>
+  </div>
+
+  <div class="confetti" id="confetti"></div>
+
+  <script>
+    function checkAnswer(index, validAnswers) {
+      const input = document.getElementById(`a${index}`).value.trim().toLowerCase();
+      const errorBox = document.getElementById(`e${index}`);
+      if (validAnswers.includes(input)) {
+        document.getElementById(`q${index}`).classList.remove('active');
+        if (index < 4) {
+          document.getElementById(`q${index + 1}`).classList.add('active');
+        } else {
+          document.getElementById('envelope').style.display = 'block';
+        }
+      } else {
+        errorBox.innerText = 'Error Lovey 💔';
+      }
+    }
+
+    function openLetter() {
+      document.getElementById('envelope').style.display = 'none';
+      document.getElementById('letter').style.display = 'block';
+      launchConfetti();
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 100; i++) {
+        let confetti = document.createElement('div');
+        confetti.classList.add('confetti-piece');
+        confetti.style.left = `${Math.random() * 100}%`;
+        confetti.style.top = `${Math.random() * -100}%`;
+        confetti.style.background = `hsl(${Math.random() * 360}, 100%, 75%)`;
+        document.getElementById('confetti').appendChild(confetti);
+      }
+    }
+  </script>
+</body>
+</html>
